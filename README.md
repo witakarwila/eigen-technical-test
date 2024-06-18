@@ -1,6 +1,6 @@
-# eigen-technical-test
+# Eigen Backend Technical Test
 
-## Technical Assessment Setup
+## Setup
 
 ### Firebase Setup:
 
