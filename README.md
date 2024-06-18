@@ -16,4 +16,4 @@
 
 ### Running the Algorithm Test:
 
-1. **Running the file:** Run `node {filename.js}`
+1. **Running the file:** Run `node filename.js`
