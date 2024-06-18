@@ -1,0 +1,158 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Library Management API",
+    "version": "1.0.0",
+    "description": "An API for managing books and members in a library"
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/books": {
+      "get": {
+        "summary": "Get all available books",
+        "description": "Retrieves a list of all books that are currently available for borrowing (not borrowed by any member).",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Book"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members": {
+      "get": {
+        "summary": "Get all members with borrowed book counts",
+        "description": "Retrieves details of all members, including the number of books they are currently borrowing.",
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Member"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/{memberId}/borrow/{bookId}": {
+      "post": {
+        "summary": "Borrow a book",
+        "description": "Allows a member to borrow a specific book.",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "description": "ID of the member borrowing the book",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of the book to be borrowed",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book borrowed successfully"
+          },
+          "400": {
+            "description": "Bad Request (e.g., member penalized, book unavailable, borrow limit reached)"
+          },
+          "404": {
+            "description": "Member or book not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/members/{memberId}/return/{bookId}": {
+      "post": {
+        "summary": "Return a book",
+        "description": "Allows a member to return a borrowed book.",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "path",
+            "description": "ID of the member returning the book",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bookId",
+            "in": "path",
+            "description": "ID of the book to be returned",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Book returned successfully"
+          },
+          "400": {
+            "description": "Bad Request (e.g., member did not borrow this book, book already returned)"
+          },
+          "404": {
+            "description": "Member or book not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Book": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The unique identifier of the book."
+        },
+        "title": { "type": "string" },
+        "author": { "type": "string" },
+        "stock": { "type": "integer" }
+      }
+    },
+    "Member": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "penaltyEndDate": { "type" : "timestamp"}
+      }
+    },
+    "Borrow": {
+      "type": "object",
+      "properties": {
+        "bookId": { "type": "string" },
+        "memberId": { "type": "string" },
+        "borrowDate": { "type": "timstamp" },
+        "dueDate": { "type" : "timestamp"},
+        "returnedDate": { "type" : "timestamp"}
+      }
+    }
+  }
+}
+
