@@ -4,7 +4,7 @@
 
 ### Firebase Setup:
 
-1. **Clone Project:** Clone this project.
+1. **Clone Project:** Clone this project `git clone https://github.com/witakarwila/eigen-technical-test.git`.
 2. **Environment Variable:** Copy the `firebase-credential.json` to the .env file in the root directory of this project.
 3. **Install Dependencies:** Run `npm install` to install the required packages.
 
