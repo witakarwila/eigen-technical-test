@@ -1,7 +1,5 @@
 # Eigen Backend Technical Test
 
-## Setup
-
 ### Firebase Setup:
 
 1. **Clone Project:** Clone this project `git clone https://github.com/witakarwila/eigen-technical-test.git`.
